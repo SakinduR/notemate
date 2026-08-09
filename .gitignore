@@ -1,24 +1,24 @@
-# Vector Database
+# Vector database (Chroma) -- large binary index files, regenerated via `python ingest.py`
 chroma_db/
+*.sqlite3
+*.bin
+*.pickle
 
 # Python environment and caches
 __pycache__/
 .venv/
 venv/
 *.pyc
-chroma_db/
-__pycache__/
-.venv/
 
-# Local environment variables (if you add API keys later)
+# Local environment variables
 .env
 
-# You probably want to ignore your raw PDFs too, 
+# You probably want to ignore your raw PDFs too,
 # unless you want to provide a small sample dataset.
 # If you want to ignore all data:
 data/
 
-# But if you want to keep a tiny sample PDF in /data for people to test with, 
+# But if you want to keep a tiny sample PDF in /data for people to test with,
 # you can ignore everything EXCEPT that one file like this:
 # data/*
 # !data/sample_test_doc.pdf
