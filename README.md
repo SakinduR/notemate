@@ -1,6 +1,6 @@
-# CourseLens — Agentic RAG
+# NoteMate — Agentic RAG
 
-CourseLens started as a single-user CLI tool for asking questions over a fixed set of course PDFs. It's being rebuilt into a hosted, multi-document, **agentic** RAG web app: any user uploads their own documents and gets grounded, cited answers — with the agent self-correcting when retrieval comes back weak, rather than confidently answering off irrelevant context.
+NoteMate started as a single-user CLI tool for asking questions over a fixed set of course PDFs. It's being rebuilt into a hosted, multi-document, **agentic** RAG web app: any user uploads their own documents and gets grounded, cited answers — with the agent self-correcting when retrieval comes back weak, rather than confidently answering off irrelevant context.
 
 ## Why "agentic" instead of just RAG
 
