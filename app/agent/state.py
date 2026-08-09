@@ -48,6 +48,12 @@ class GraphState(TypedDict):
     # retries (see the plan: max ~2) so a stubborn query can't loop forever.
     retry_count: int
 
+    # How many times generate_answer_node has run. A separate counter from
+    # retry_count: this caps the generate -> check_groundedness -> regenerate
+    # loop (plan: "regenerate once, else return with a caveat"), which is a
+    # different loop from the rewrite/retrieve correction loop above.
+    generation_attempts: int
+
     # Annotated[..., operator.add] is a LangGraph "reducer": instead of each
     # node's return value overwriting state["trace"], LangGraph concatenates
     # (list + list) it onto the existing value. So every node can just
