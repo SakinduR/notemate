@@ -6,6 +6,7 @@ from llama_index.core.storage.storage_context import StorageContext
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.core.node_parser import SemanticSplitterNodeParser, SentenceSplitter
 from llama_index.core.schema import TextNode
+from llama_index.readers.file import PyMuPDFReader
 
 # 1. Setup Local Embedding Model
 print("Loading embedding model...")
@@ -19,9 +20,17 @@ chroma_collection = db.get_or_create_collection("course_materials")
 vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
 storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
-# 3. Load Documents
-print("Loading documents from /data folder...")
-documents = SimpleDirectoryReader("./data").load_data()
+# 3. Load Documents with an upgraded PDF parser
+print("Loading documents from /data folder using PyMuPDF...")
+
+# Tell the directory reader to use PyMuPDF specifically for .pdf files
+pdf_extractor = {".pdf": PyMuPDFReader()}
+documents = SimpleDirectoryReader(
+    "./data", 
+    file_extractor=pdf_extractor
+).load_data()
+
+print(f"Loaded {len(documents)} document pages/files.")
 
 # 4. Document Routing & Metadata Tagging
 slide_docs = []
