@@ -7,6 +7,10 @@ class SessionCreateRequest(BaseModel):
     name: str
 
 
+class SessionUpdateRequest(BaseModel):
+    name: str
+
+
 class SessionOut(BaseModel):
     id: str
     name: str

@@ -71,6 +71,7 @@ if __name__ == "__main__":
     app = build_graph()
     result = app.invoke(
         {
+            "collection_name": "course_materials",
             "original_query": "What is Constructive Cost Model?",
             "query": "What is Constructive Cost Model?",
             "retry_count": 0,

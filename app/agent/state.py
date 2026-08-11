@@ -20,6 +20,11 @@ from llama_index.core.schema import NodeWithScore
 
 
 class GraphState(TypedDict):
+    # Which Chroma collection to retrieve from -- each api/ Session gets its
+    # own collection (see api/models.py::Session.chroma_collection_name) so
+    # one user's documents are never visible to another's queries.
+    collection_name: str
+
     # The user's question, exactly as asked. Never mutated by any node --
     # generate_answer_node should always answer *this*, even if the search
     # query itself got rewritten along the way.

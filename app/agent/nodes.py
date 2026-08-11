@@ -61,7 +61,7 @@ def retrieve_node(state: GraphState) -> dict:
     (app/vector_store.py) -- the retrieval mechanics don't change just
     because an agent is calling it instead of a script.
     """
-    vector_store = get_vector_store()
+    vector_store = get_vector_store(state["collection_name"])
     storage_context = get_storage_context(vector_store)
     index = VectorStoreIndex.from_vector_store(vector_store, storage_context=storage_context)
 
