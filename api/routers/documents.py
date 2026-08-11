@@ -20,6 +20,16 @@ MAX_FILE_SIZE_BYTES = 20 * 1024 * 1024
 ALLOWED_CONTENT_TYPES = {"application/pdf"}
 
 
+def _to_document_out(document: DocumentModel) -> DocumentOut:
+    return DocumentOut(
+        id=document.id,
+        file_name=document.file_name,
+        size_bytes=document.size_bytes,
+        source_type=document.source_type,
+        uploaded_at=document.uploaded_at,
+    )
+
+
 def _run_ingestion_task(session_id: str) -> None:
     """Runs after the upload response has already been sent, so it can't
     reuse the request-scoped DB session from get_db (closed by then) --
@@ -91,18 +101,14 @@ def upload_documents(
     background_tasks.add_task(_run_ingestion_task, session.id)
 
     return UploadResponse(
-        documents=[
-            DocumentOut(
-                id=d.id,
-                file_name=d.file_name,
-                size_bytes=d.size_bytes,
-                source_type=d.source_type,
-                uploaded_at=d.uploaded_at,
-            )
-            for d in documents
-        ],
+        documents=[_to_document_out(d) for d in documents],
         ingestion_status=session.ingestion_status,
     )
+
+
+@router.get("/{session_id}/documents", response_model=list[DocumentOut])
+def list_documents(session: SessionModel = Depends(get_session_or_404)) -> list[DocumentOut]:
+    return [_to_document_out(d) for d in session.documents]
 
 
 @router.get("/{session_id}/ingest/status", response_model=IngestStatusOut)
