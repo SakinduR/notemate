@@ -13,17 +13,6 @@ Any LLM can already answer questions about an uploaded PDF. The parts a raw file
 
 Every architecture decision below is chosen to serve one of these four; nothing is added for its own sake.
 
-## Status
-
-| Step | What | Status |
-|---|---|---|
-| 1 | Split the CLI into reusable modules; run Chroma as a server, not embedded; content-based document typing | ✅ Done |
-| 2 | LangGraph corrective-RAG pipeline (standalone, not yet wired to a server) | 🚧 In progress |
-| 3 | Wrap in FastAPI with an SSE trace endpoint + background-task ingestion | ⏳ Not started |
-| 4 | React frontend (upload UI, chat UI, citations) | ⏳ Not started |
-| 5 | Dockerize everything, deploy to an Oracle free-tier VM | ⏳ Not started |
-| 6 | Tracing (Langfuse/LangSmith) + a small eval pass vs. naive RAG | ⏳ Not started |
-
 Step 2 detail: `app/agent/state.py` (the shared state schema) and `app/agent/nodes.py::retrieve_node` are done. The remaining nodes (`rewrite_query_node`, `rerank_node`, `grade_documents_node`, `generate_answer_node`, `check_groundedness_node`) and the full graph wiring in `app/agent/graph.py` are being built out incrementally.
 
 ## System architecture
