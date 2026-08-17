@@ -17,6 +17,12 @@ venv/
 # unless you want to provide a small sample dataset.
 # If you want to ignore all data:
 data/
+# Explicit capital-D variant too: git matches this pattern case-sensitively
+# even on a case-insensitive filesystem, and this repo once had a tracked
+# `Data/` (from before the code settled on lowercase `./data`) that a
+# case-sensitive checkout -- any Linux clone -- would silently miss the
+# code's expected directory while still downloading these files.
+Data/
 
 # But if you want to keep a tiny sample PDF in /data for people to test with,
 # you can ignore everything EXCEPT that one file like this:
