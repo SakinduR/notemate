@@ -1,0 +1,9 @@
+.venv
+__pycache__
+*.pyc
+.git
+chroma_db
+data
+frontend/node_modules
+frontend/dist
+.env

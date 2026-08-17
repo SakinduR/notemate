@@ -16,6 +16,7 @@ class Settings:
     groq_model: str = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 
     ollama_model: str = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
+    ollama_base_url: str = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
     reranker_model_name: str = os.getenv("RERANKER_MODEL_NAME", "BAAI/bge-reranker-base")
 
     chroma_host: str = os.getenv("CHROMA_HOST", "localhost")

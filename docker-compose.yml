@@ -6,3 +6,44 @@ services:
     volumes:
       - ./chroma_db:/data
     restart: unless-stopped
+
+  ollama:
+    build: ./ollama
+    environment:
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-llama3.2:3b}
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    # Not exposed to the host -- only the backend talks to this, over the
+    # Compose network at http://ollama:11434 (see OLLAMA_BASE_URL below).
+
+  backend:
+    build: .
+    env_file: .env
+    environment:
+      # Override the local-dev defaults (host.docker.internal / localhost)
+      # with the Compose service names -- containers reach each other by
+      # service name over the network Compose creates automatically, not
+      # via the host-mapped ports used for local, non-Docker development.
+      - CHROMA_HOST=chroma
+      - CHROMA_PORT=8000
+      - OLLAMA_BASE_URL=http://ollama:11434
+    volumes:
+      - ./data:/srv/data
+    ports:
+      - "8090:8000"
+    depends_on:
+      - chroma
+      - ollama
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  ollama_data:

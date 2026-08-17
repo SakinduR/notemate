@@ -6,7 +6,7 @@ import { SourceTypeBadge } from '../components/SourceTypeBadge'
 import { getSession } from '../api/sessions'
 import { getIngestStatus, listDocuments, uploadDocuments } from '../api/documents'
 import { streamChat } from '../api/chat'
-import type { ChatMessage, DocumentOut, IngestionStatus, StudySession } from '../api/types'
+import type { ChatMessage, DocumentOut, StudySession } from '../api/types'
 
 const POLL_INTERVAL_MS = 4000
 

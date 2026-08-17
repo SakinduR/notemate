@@ -42,7 +42,7 @@ Settings.embed_model = get_embed_model()
 #    that's been removed in the transformers version this project already
 #    depends on for embeddings -- sentence-transformers' CrossEncoder runs
 #    the same bge-reranker-base model without that conflict.)
-_ollama_llm = ChatOllama(model=settings.ollama_model, temperature=0)
+_ollama_llm = ChatOllama(model=settings.ollama_model, base_url=settings.ollama_base_url, temperature=0)
 _reranker = CrossEncoder(settings.reranker_model_name)
 
 # Tuning constants for the two correction loops (see state.py's
